@@ -12,10 +12,6 @@ const SavingsCalculator = ({ leadData, updateLeadData, onNext, onPrev }) => {
     co2Offset: 0
   });
 
-  useEffect(() => {
-    calculateSavings();
-  }, [leadData, calculateSavings]);
-
   const calculateSavings = useCallback(async () => {
     setCalculations(prev => ({ ...prev, loading: true }));
     
@@ -68,6 +64,10 @@ const SavingsCalculator = ({ leadData, updateLeadData, onNext, onPrev }) => {
     setCalculations(newCalculations);
     updateLeadData(newCalculations);
   }, [leadData, updateLeadData]);
+
+  useEffect(() => {
+    calculateSavings();
+  }, [calculateSavings]);
 
   const handleContinue = () => {
     onNext();
