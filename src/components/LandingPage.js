@@ -51,21 +51,33 @@ const LandingPage = ({ onGetStarted, leadData, updateLeadData }) => {
               <form onSubmit={handleQuickQuote}>
                 <div className="form-grid form-grid-2">
                   <div className="form-group">
-                    <label className="form-label">ZIP Code</label>
+                    <label className="form-label" htmlFor="zipCode">ZIP Code</label>
                     <input 
+                      id="zipCode"
                       type="text" 
                       name="zipCode"
                       className="form-input"
                       placeholder="92308"
                       required
                       pattern="[0-9]{5}"
+                      autoComplete="postal-code"
+                      inputMode="numeric"
+                      aria-describedby="zipcode-help"
                     />
+                    <div id="zipcode-help" className="form-hint">Enter your 5-digit ZIP code</div>
                   </div>
                   
                   <div className="form-group">
-                    <label className="form-label">Monthly Electric Bill</label>
-                    <select name="electricBill" className="form-select" required>
-                      <option value="">Select amount</option>
+                    <label className="form-label" htmlFor="electricBill">Monthly Electric Bill</label>
+                    <select 
+                      id="electricBill"
+                      name="electricBill" 
+                      className="form-select" 
+                      required
+                      autoComplete="off"
+                      aria-describedby="bill-help"
+                    >
+                      <option value="">Select your average monthly bill</option>
                       <option value="50-100">$50 - $100</option>
                       <option value="100-150">$100 - $150</option>
                       <option value="150-200">$150 - $200</option>
@@ -73,12 +85,22 @@ const LandingPage = ({ onGetStarted, leadData, updateLeadData }) => {
                       <option value="300-400">$300 - $400</option>
                       <option value="400+">$400+</option>
                     </select>
+                    <div id="bill-help" className="form-hint">Check your recent electric bill for accuracy</div>
                   </div>
                 </div>
                 
-                <button type="submit" className="btn btn-primary btn-large" style={{ width: '100%' }}>
+                <button 
+                  type="submit" 
+                  className="btn btn-primary btn-large" 
+                  style={{ 
+                    width: '100%',
+                    touchAction: 'manipulation'
+                  }}
+                  aria-describedby="submit-help"
+                >
                   Calculate My Savings ⚡
                 </button>
+                <div id="submit-help" className="sr-only">Get your personalized solar savings estimate</div>
               </form>
               
               <p style={{ 

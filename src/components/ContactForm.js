@@ -32,7 +32,15 @@ const ContactForm = ({ leadData, updateLeadData, onPrev, onComplete }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    if (!validateForm()) return;
+    if (!validateForm()) {
+      // Focus first error field for accessibility
+      const firstErrorField = Object.keys(errors)[0];
+      const firstErrorElement = document.querySelector(`[name="${firstErrorField}"]`);
+      if (firstErrorElement) {
+        firstErrorElement.focus();
+      }
+      return;
+    }
     
     setLoading(true);
     
@@ -76,54 +84,93 @@ const ContactForm = ({ leadData, updateLeadData, onPrev, onComplete }) => {
           {/* Personal Information */}
           <div className="form-grid form-grid-2">
             <div className="form-group">
-              <label className="form-label">First Name *</label>
+              <label className="form-label" htmlFor="firstName">First Name *</label>
               <input
+                id="firstName"
+                name="firstName"
                 type="text"
                 className="form-input"
                 value={leadData.firstName || ''}
                 onChange={(e) => handleInputChange('firstName', e.target.value)}
                 placeholder="John"
+                autoComplete="given-name"
+                aria-invalid={errors.firstName ? 'true' : 'false'}
+                aria-describedby={errors.firstName ? 'firstName-error' : undefined}
               />
-              {errors.firstName && <div className="error-message">{errors.firstName}</div>}
+              {errors.firstName && (
+                <div id="firstName-error" className="error-message" role="alert" aria-live="polite">
+                  {errors.firstName}
+                </div>
+              )}
             </div>
 
             <div className="form-group">
-              <label className="form-label">Last Name *</label>
+              <label className="form-label" htmlFor="lastName">Last Name *</label>
               <input
+                id="lastName"
+                name="lastName"
                 type="text"
                 className="form-input"
                 value={leadData.lastName || ''}
                 onChange={(e) => handleInputChange('lastName', e.target.value)}
                 placeholder="Smith"
+                autoComplete="family-name"
+                aria-invalid={errors.lastName ? 'true' : 'false'}
+                aria-describedby={errors.lastName ? 'lastName-error' : undefined}
               />
-              {errors.lastName && <div className="error-message">{errors.lastName}</div>}
+              {errors.lastName && (
+                <div id="lastName-error" className="error-message" role="alert" aria-live="polite">
+                  {errors.lastName}
+                </div>
+              )}
             </div>
           </div>
 
           {/* Contact Information */}
           <div className="form-grid form-grid-2">
             <div className="form-group">
-              <label className="form-label">Email Address *</label>
+              <label className="form-label" htmlFor="email">Email Address *</label>
               <input
+                id="email"
+                name="email"
                 type="email"
                 className="form-input"
                 value={leadData.email || ''}
                 onChange={(e) => handleInputChange('email', e.target.value)}
+                autoComplete="email"
+                inputMode="email"
+                spellCheck={false}
+                aria-invalid={errors.email ? 'true' : 'false'}
+                aria-describedby={errors.email ? 'email-error' : undefined}
                 placeholder="john.smith@email.com"
               />
-              {errors.email && <div className="error-message">{errors.email}</div>}
+              {errors.email && (
+                <div id="email-error" className="error-message" role="alert" aria-live="polite">
+                  {errors.email}
+                </div>
+              )}
             </div>
 
             <div className="form-group">
-              <label className="form-label">Phone Number *</label>
+              <label className="form-label" htmlFor="phone">Phone Number *</label>
               <input
+                id="phone"
+                name="phone"
                 type="tel"
                 className="form-input"
                 value={leadData.phone || ''}
                 onChange={(e) => handleInputChange('phone', e.target.value)}
                 placeholder="(555) 123-4567"
+                autoComplete="tel"
+                inputMode="tel"
+                aria-invalid={errors.phone ? 'true' : 'false'}
+                aria-describedby={errors.phone ? 'phone-error' : undefined}
               />
-              {errors.phone && <div className="error-message">{errors.phone}</div>}
+              {errors.phone && (
+                <div id="phone-error" className="error-message" role="alert" aria-live="polite">
+                  {errors.phone}
+                </div>
+              )}
             </div>
           </div>
 
