@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 
 const SavingsCalculator = ({ leadData, updateLeadData, onNext, onPrev }) => {
   const [calculations, setCalculations] = useState({
@@ -14,9 +14,9 @@ const SavingsCalculator = ({ leadData, updateLeadData, onNext, onPrev }) => {
 
   useEffect(() => {
     calculateSavings();
-  }, [leadData]);
+  }, [leadData, calculateSavings]);
 
-  const calculateSavings = async () => {
+  const calculateSavings = useCallback(async () => {
     setCalculations(prev => ({ ...prev, loading: true }));
     
     // Simulate API call
@@ -67,7 +67,7 @@ const SavingsCalculator = ({ leadData, updateLeadData, onNext, onPrev }) => {
     
     setCalculations(newCalculations);
     updateLeadData(newCalculations);
-  };
+  }, [leadData, updateLeadData]);
 
   const handleContinue = () => {
     onNext();
