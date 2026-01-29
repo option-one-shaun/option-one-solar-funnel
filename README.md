@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Option One Solar - React Sales Funnel
 
 A modern, conversion-optimized solar sales funnel built with React, featuring proper Option One Solar branding and proven marketing strategies.
@@ -220,3 +221,7 @@ This project is proprietary software for Option One Solar. Unauthorized distribu
 ---
 
 **Built with ⚡ by Option One Solar Marketing Team**
+=======
+# option-one-solar-funnel
+Modern React sales funnel for Option One Solar with conversion optimization
+>>>>>>> 5f9ba37ba5d454b91f3f4b925eb89faaec5ce5f8
